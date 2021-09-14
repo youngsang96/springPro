@@ -18,6 +18,13 @@ public class Member {
 		this.registerDate = registerDate;
 	}
 	
+	public void changePassword(String oldPw, String newPw) {
+		if(!password.equals(oldPw)) {
+			throw new IdPasswordNotMatchingException();
+		}
+		this.password=newPw;
+	}
+	
 	public Long getId() {
 		return id;
 	}

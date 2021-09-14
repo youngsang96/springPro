@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   		http://www.springframework.org/schema/beans/spring-beans.xsd
+	   		http://www.springframework.org/schema/context
+	   		http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan base-package="di03_scan"/>
+	<bean id="user1" class="di03.User">
+		<constructor-arg value="bkchoi" />
+		<constructor-arg value="1234" />
+	</bean>
+
+	<bean id="user2" class="di03.User">
+		<constructor-arg value="madvirus" />
+		<constructor-arg value="qwer" />
+	</bean>
+
+	<bean id="authFailLogger" class="di03.AuthFailLogger">
+		<property name="threshold" value="2"></property>
+	</bean>
+</beans>

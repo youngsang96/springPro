@@ -8,7 +8,11 @@
 	<bean id="memberDao" class="di01.MemberDao"/>
 	
 	<bean id="memberRegSvc" class="di01.MemberRegisterService">
-	<!--  <constructor-arg ref="memberDao"/> -->
+	<constructor-arg ref="memberDao"/>
+	</bean>
+	
+	<bean id="changePwdSvc" class="di01.ChangePasswordService">
+	<constructor-arg ref="memberDao"/>
 	</bean>
 	
 </beans>

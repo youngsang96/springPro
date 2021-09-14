@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   		http://www.springframework.org/schema/beans/spring-beans.xsd
+	   		http://www.springframework.org/schema/aop
+	   		http://www.springframework.org/schema/aop/spring-aop.xsd
+	   		http://www.springframework.org/schema/context
+	   		http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 
+	aop 관련 용어 pointcut : 
+	핵심알고리즘 설정 execution(public * di07.*Impl.*(..)) 
+		=> di07 패키지의 클래스중 이름이 Impl로 끝나는 클래스의 모든 public 메서드(joinpoint) 
+		aspect : AOP로 사용될 객체 지정함. 
+		advice : AOP로 실행될 메서드와 실행 순서를 지정함. 
+		around : 핵심알고리즘 실행 전, 후 모두 지정. 
+		before : 핵심알고리즘 실행 전 
+		after : 핵심알고리즘 실행 후 
+		afterReturning : 핵심알고리즘 정상 실행 
+		후 afterThrowing : 핵심알고리즘 오류발생 실행 후 
+		-->
+
+	<bean id="write" class="di05.WriteImpl">
+		<constructor-arg>
+			<ref bean="articleDao" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="articleDao" class="di05.OracleArticleDao" />
+	<bean id="logging" class="di05.LoggingAspect" />
+
+	<aop:config>
+		<aop:pointcut
+			expression="execution(public * di05.*Impl.*(..))"
+			id="servicepointcut" />
+		<aop:aspect id="loggingAspect" ref="logging">
+			<aop:around method="logging"
+				pointcut-ref="servicepointcut" />
+		</aop:aspect>
+	</aop:config>
+
+</beans>
